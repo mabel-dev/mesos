@@ -536,7 +536,7 @@ class Connection:
         logger.debug("Received query: %s", sql)
 
         result_set = ensure_result_set(
-            await self.session.handle_query(sql, query_attrs)
+            await self.session.query(sql=sql, attrs=query_attrs)
         )
         return result_set
 

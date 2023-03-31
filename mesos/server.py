@@ -6,8 +6,7 @@ from mysql_mimic import Session
 
 
 class MySession(Session):
-    async def query(self, expression, sql, attrs):
-        print(f"Parsed abstract syntax tree: {expression}")
+    async def query(self, sql, attrs):
         print(f"Original SQL string: {sql}")
         print(f"Query attributes: {attrs}")
         print(f"Currently authenticated user: {self.username}")

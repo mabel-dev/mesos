@@ -16,9 +16,6 @@ from mysql_mimic.errors import MysqlError
 from mysql_mimic.packets import ComFieldList
 from mysql_mimic.results import AllowedResult
 from mysql_mimic.utils import dict_depth
-from sqlglot import expressions as exp
-from sqlglot.executor import Table
-from sqlglot.executor import execute
 
 
 @dataclass
@@ -76,7 +73,7 @@ def info_schema_tables(columns: Iterable[Column]) -> Dict[str, Dict[str, Table]]
     ordinal_positions: dict[Any, int] = defaultdict(lambda: 0)
 
     data = {
-        db: {k: Table(tuple(v.keys())) for k, v in tables.items()}
+        db: {k: print(tuple(v.keys())) for k, v in tables.items()}
         for db, tables in INFO_SCHEMA.items()
     }
 

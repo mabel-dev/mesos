@@ -37,8 +37,8 @@ TABLES = {
 
 
 class MySession(Session):
-    async def query(self, expression, sql, attrs):
-        result = execute(expression, schema=SCHEMA, tables=TABLES)
+    async def query(self, sql, attrs):
+        result = execute(schema=SCHEMA, tables=TABLES)
         return result.rows, result.columns
 
     async def schema(self):
