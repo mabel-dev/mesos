@@ -1,14 +1,19 @@
 from __future__ import annotations
 
 import io
-from copy import copy
-from hashlib import sha1
 import logging
+from copy import copy
 from dataclasses import dataclass
-from typing import Optional, Dict, AsyncGenerator, Union, Tuple, Sequence
+from hashlib import sha1
+from typing import AsyncGenerator
+from typing import Dict
+from typing import Optional
+from typing import Sequence
+from typing import Tuple
+from typing import Union
 
-from mysql_mimic.types import read_str_null
 from mysql_mimic import utils
+from mysql_mimic.types import read_str_null
 
 logger = logging.getLogger(__name__)
 

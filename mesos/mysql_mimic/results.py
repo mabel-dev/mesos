@@ -3,13 +3,25 @@ from __future__ import annotations
 import io
 import struct
 from dataclasses import dataclass
-from datetime import datetime, date, timedelta
-from typing import Iterable, Sequence, Optional, Callable, Any, Union, Tuple, Dict
+from datetime import date
+from datetime import datetime
+from datetime import timedelta
+from typing import Any
+from typing import Callable
+from typing import Dict
+from typing import Iterable
+from typing import Optional
+from typing import Sequence
+from typing import Tuple
+from typing import Union
 
-from mysql_mimic.errors import MysqlError
-from mysql_mimic.types import ColumnType, str_len, uint_1, uint_2, uint_4
 from mysql_mimic.charset import CharacterSet
-
+from mysql_mimic.errors import MysqlError
+from mysql_mimic.types import ColumnType
+from mysql_mimic.types import str_len
+from mysql_mimic.types import uint_1
+from mysql_mimic.types import uint_2
+from mysql_mimic.types import uint_4
 
 Encoder = Callable[[Any, "ResultColumn"], bytes]
 

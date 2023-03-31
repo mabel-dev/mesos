@@ -1,9 +1,9 @@
-import logging
 import asyncio
+import logging
+
+from mysql_mimic import MysqlServer
+from mysql_mimic import Session
 from sqlglot.executor import execute
-
-from mysql_mimic import MysqlServer, Session
-
 
 SCHEMA = {
     "test": {

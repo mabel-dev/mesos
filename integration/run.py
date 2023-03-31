@@ -1,22 +1,19 @@
 import argparse
-import logging
 import asyncio
+import logging
 import os
 import sys
 import tempfile
 import time
 
 import k5test
-from sqlglot.executor import execute
-
-from mysql_mimic import (
-    MysqlServer,
-    IdentityProvider,
-    NativePasswordAuthPlugin,
-    User,
-    Session,
-)
+from mysql_mimic import IdentityProvider
+from mysql_mimic import MysqlServer
+from mysql_mimic import NativePasswordAuthPlugin
+from mysql_mimic import Session
+from mysql_mimic import User
 from mysql_mimic.auth import KerberosAuthPlugin
+from sqlglot.executor import execute
 
 logger = logging.getLogger(__name__)
 

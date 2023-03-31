@@ -1,8 +1,10 @@
 from __future__ import annotations
+
 import io
 import struct
-
-from enum import IntEnum, IntFlag, auto
+from enum import IntEnum
+from enum import IntFlag
+from enum import auto
 
 
 class ColumnType(IntEnum):

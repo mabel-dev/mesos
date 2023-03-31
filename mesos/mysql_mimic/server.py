@@ -2,14 +2,20 @@ from __future__ import annotations
 
 import asyncio
 import random
-from ssl import SSLContext
 from socket import socket
-from typing import Callable, Any, Dict, Optional, Sequence
+from ssl import SSLContext
+from typing import Any
+from typing import Callable
+from typing import Dict
+from typing import Optional
+from typing import Sequence
 
-from mysql_mimic.auth import IdentityProvider, SimpleIdentityProvider
+from mysql_mimic.auth import IdentityProvider
+from mysql_mimic.auth import SimpleIdentityProvider
 from mysql_mimic.connection import Connection
-from mysql_mimic.session import Session, BaseSession
 from mysql_mimic.constants import DEFAULT_SERVER_CAPABILITIES
+from mysql_mimic.session import BaseSession
+from mysql_mimic.session import Session
 from mysql_mimic.stream import MysqlStream
 from mysql_mimic.types import Capabilities
 from mysql_mimic.utils import seq

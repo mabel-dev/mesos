@@ -1,10 +1,11 @@
-from setuptools import setup, find_packages
+from setuptools import find_packages
+from setuptools import setup
 
 # Import __version__
 exec(open("mysql_mimic/version.py").read())
 
 setup(
-    name="mysql-mimic",
+    name="Mesos",
     version=__version__,
     description="A python implementation of the mysql server protocol",
     long_description=open("README.md").read(),

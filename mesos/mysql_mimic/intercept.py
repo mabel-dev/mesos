@@ -2,9 +2,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from sqlglot import expressions as exp
 from mysql_mimic.variables import DEFAULT
-
+from sqlglot import expressions as exp
 
 # Mapping of transaction characteristic from SET TRANSACTION statements to their corresponding system variable
 TRANSACTION_CHARACTERISTICS = {

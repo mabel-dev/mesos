@@ -1,40 +1,34 @@
 from __future__ import annotations
 
 from contextlib import contextmanager
-from typing import (
-    Dict,
-    TYPE_CHECKING,
-    Optional,
-    Callable,
-    Awaitable,
-    Type,
-    Any,
-    Iterator,
-)
-
-from sqlglot import Dialect
-from sqlglot.dialects import MySQL
-from sqlglot import expressions as exp
-from sqlglot.executor import execute
+from typing import TYPE_CHECKING
+from typing import Any
+from typing import Awaitable
+from typing import Callable
+from typing import Dict
+from typing import Iterator
+from typing import Optional
+from typing import Type
 
 from mysql_mimic.charset import CharacterSet
-from mysql_mimic.errors import ErrorCode, MysqlError
-from mysql_mimic.intercept import (
-    setitem_kind,
-    value_to_expression,
-    expression_to_value,
-    TRANSACTION_CHARACTERISTICS,
-)
-from mysql_mimic.schema import (
-    show_statement_to_info_schema_query,
-    like_to_regex,
-    BaseInfoSchema,
-    ensure_info_schema,
-)
 from mysql_mimic.constants import INFO_SCHEMA
-from mysql_mimic.utils import find_dbs
-from mysql_mimic.variables import Variables, SessionVariables, GlobalVariables, DEFAULT
+from mysql_mimic.errors import ErrorCode
+from mysql_mimic.errors import MysqlError
+from mysql_mimic.intercept import TRANSACTION_CHARACTERISTICS
+from mysql_mimic.intercept import expression_to_value
+from mysql_mimic.intercept import setitem_kind
+from mysql_mimic.intercept import value_to_expression
 from mysql_mimic.results import AllowedResult
+from mysql_mimic.schema import BaseInfoSchema
+from mysql_mimic.schema import ensure_info_schema
+from mysql_mimic.schema import like_to_regex
+from mysql_mimic.schema import show_statement_to_info_schema_query
+from mysql_mimic.utils import find_dbs
+from mysql_mimic.variables import DEFAULT
+from mysql_mimic.variables import GlobalVariables
+from mysql_mimic.variables import SessionVariables
+from mysql_mimic.variables import Variables
+
 
 if TYPE_CHECKING:
     from mysql_mimic.connection import Connection

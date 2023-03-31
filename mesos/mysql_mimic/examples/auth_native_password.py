@@ -1,12 +1,10 @@
-import logging
 import asyncio
+import logging
 
-from mysql_mimic import (
-    MysqlServer,
-    IdentityProvider,
-    NativePasswordAuthPlugin,
-    User,
-)
+from mysql_mimic import IdentityProvider
+from mysql_mimic import MysqlServer
+from mysql_mimic import NativePasswordAuthPlugin
+from mysql_mimic import User
 
 logger = logging.getLogger(__name__)
 

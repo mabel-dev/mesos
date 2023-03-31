@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 import abc
-from typing import Any, Callable, Tuple
+from typing import Any
+from typing import Callable
+from typing import Tuple
 
-from mysql_mimic.charset import CharacterSet, Collation
-from mysql_mimic.errors import MysqlError, ErrorCode
+from mysql_mimic.charset import CharacterSet
+from mysql_mimic.charset import Collation
+from mysql_mimic.errors import ErrorCode
+from mysql_mimic.errors import MysqlError
 
 
 class Default:

@@ -2,8 +2,10 @@ import asyncio
 import struct
 from ssl import SSLContext
 
-from mysql_mimic.errors import MysqlError, ErrorCode
-from mysql_mimic.types import uint_3, uint_1
+from mysql_mimic.errors import ErrorCode
+from mysql_mimic.errors import MysqlError
+from mysql_mimic.types import uint_1
+from mysql_mimic.types import uint_3
 from mysql_mimic.utils import seq
 
 

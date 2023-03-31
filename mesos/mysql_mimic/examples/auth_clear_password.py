@@ -1,11 +1,9 @@
-import logging
 import asyncio
+import logging
 
-from mysql_mimic import (
-    MysqlServer,
-    IdentityProvider,
-    User,
-)
+from mysql_mimic import IdentityProvider
+from mysql_mimic import MysqlServer
+from mysql_mimic import User
 from mysql_mimic.auth import AbstractClearPasswordAuthPlugin
 
 logger = logging.getLogger(__name__)

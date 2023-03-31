@@ -1,13 +1,10 @@
 from __future__ import annotations
+
+import random
+import string
 import sys
 from collections.abc import Iterator
-import random
 from typing import List
-import string
-
-from sqlglot import expressions as exp
-from sqlglot.optimizer.scope import traverse_scope
-
 
 # MySQL Connector/J uses ASCII to decode nonce
 SAFE_NONCE_CHARS = (string.ascii_letters + string.digits).encode()

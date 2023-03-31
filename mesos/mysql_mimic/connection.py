@@ -1,30 +1,35 @@
 import logging
 from ssl import SSLContext
-from typing import Optional, Dict, Any, Iterator
+from typing import Any
+from typing import Dict
+from typing import Iterator
+from typing import Optional
 
-from mysql_mimic.auth import (
-    AuthInfo,
-    Forbidden,
-    Success,
-    AuthPlugin,
-    AuthState,
-    IdentityProvider,
-)
+from mysql_mimic import context
+from mysql_mimic import packets
+from mysql_mimic import types
+from mysql_mimic.auth import AuthInfo
+from mysql_mimic.auth import AuthPlugin
+from mysql_mimic.auth import AuthState
+from mysql_mimic.auth import Forbidden
+from mysql_mimic.auth import IdentityProvider
+from mysql_mimic.auth import Success
 from mysql_mimic.charset import CharacterSet
 from mysql_mimic.constants import DEFAULT_SERVER_CAPABILITIES
-from mysql_mimic.errors import ErrorCode, MysqlError
-from mysql_mimic.packets import (
-    SSLRequest,
-    parse_com_init_db,
-    parse_com_field_list,
-    make_column_definition_41,
-)
-from mysql_mimic.prepared import PreparedStatement, REGEX_PARAM
-from mysql_mimic.results import ensure_result_set, ResultSet
-from mysql_mimic import types, packets, context
+from mysql_mimic.errors import ErrorCode
+from mysql_mimic.errors import MysqlError
+from mysql_mimic.packets import SSLRequest
+from mysql_mimic.packets import make_column_definition_41
+from mysql_mimic.packets import parse_com_field_list
+from mysql_mimic.packets import parse_com_init_db
+from mysql_mimic.prepared import REGEX_PARAM
+from mysql_mimic.prepared import PreparedStatement
+from mysql_mimic.results import ResultSet
+from mysql_mimic.results import ensure_result_set
 from mysql_mimic.schema import com_field_list_to_show_statement
 from mysql_mimic.session import BaseSession
-from mysql_mimic.stream import MysqlStream, ConnectionClosed
+from mysql_mimic.stream import ConnectionClosed
+from mysql_mimic.stream import MysqlStream
 from mysql_mimic.types import Capabilities
 from mysql_mimic.utils import seq
 

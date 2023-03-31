@@ -1,7 +1,8 @@
 import re
 from dataclasses import dataclass
-from typing import Optional, Dict, Iterable
-
+from typing import Dict
+from typing import Iterable
+from typing import Optional
 
 # Borrowed from mysql-connector-python
 REGEX_PARAM = re.compile(r"""\?(?=(?:[^"'`]*["'`][^"'`]*["'`])*[^"'`]*$)""")

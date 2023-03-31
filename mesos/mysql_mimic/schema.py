@@ -2,18 +2,23 @@ from __future__ import annotations
 
 import re
 from collections import defaultdict
-from itertools import chain
 from dataclasses import dataclass
-from typing import Any, Optional, List, Dict, Iterable
-
-from sqlglot.executor import Table, execute
-from sqlglot import expressions as exp
+from itertools import chain
+from typing import Any
+from typing import Dict
+from typing import Iterable
+from typing import List
+from typing import Optional
 
 from mysql_mimic.constants import INFO_SCHEMA
-from mysql_mimic.results import AllowedResult
-from mysql_mimic.errors import MysqlError, ErrorCode
+from mysql_mimic.errors import ErrorCode
+from mysql_mimic.errors import MysqlError
 from mysql_mimic.packets import ComFieldList
+from mysql_mimic.results import AllowedResult
 from mysql_mimic.utils import dict_depth
+from sqlglot import expressions as exp
+from sqlglot.executor import Table
+from sqlglot.executor import execute
 
 
 @dataclass

@@ -1,8 +1,9 @@
-import logging
 import asyncio
+import logging
 import sqlite3
 
-from mysql_mimic import MysqlServer, Session
+from mysql_mimic import MysqlServer
+from mysql_mimic import Session
 
 logger = logging.getLogger(__name__)
 
