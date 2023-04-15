@@ -1,16 +1,12 @@
 from __future__ import annotations
 
-from contextlib import contextmanager
 import typing
-
-
+from contextlib import contextmanager
 
 from mysql_mimic.results import AllowedResult
-from mysql_mimic.schema import BaseInfoSchema
 from mysql_mimic.variables import GlobalVariables
 from mysql_mimic.variables import SessionVariables
 from mysql_mimic.variables import Variables
-
 
 if typing.TYPE_CHECKING:
     from mysql_mimic.connection import Connection

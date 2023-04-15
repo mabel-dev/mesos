@@ -50,9 +50,7 @@ class ResultColumn:
         self.type = type
         self.character_set = character_set
         self.text_encoder = text_encoder or _TEXT_ENCODERS.get(type) or _unsupported
-        self.binary_encoder = (
-            binary_encoder or _BINARY_ENCODERS.get(type) or _unsupported
-        )
+        self.binary_encoder = binary_encoder or _BINARY_ENCODERS.get(type) or _unsupported
 
     def text_encode(self, val: Any) -> bytes:
         return self.text_encoder(self, val)
@@ -74,9 +72,7 @@ class ResultSet:
 
 
 AllowedColumn = Union[ResultColumn, str]
-AllowedResult = Union[
-    ResultSet, Tuple[Sequence[Sequence[Any]], Sequence[AllowedColumn]], None
-]
+AllowedResult = Union[ResultSet, Tuple[Sequence[Sequence[Any]], Sequence[AllowedColumn]], None]
 
 
 def ensure_result_set(result: AllowedResult) -> ResultSet:
@@ -86,9 +82,7 @@ def ensure_result_set(result: AllowedResult) -> ResultSet:
         return result
     if isinstance(result, tuple):
         if len(result) != 2:
-            raise MysqlError(
-                f"Result tuple should be of size 2. Received: {len(result)}"
-            )
+            raise MysqlError(f"Result tuple should be of size 2. Received: {len(result)}")
         rows = result[0]
         columns = result[1]
 
@@ -117,9 +111,7 @@ def _ensure_result_col(
     raise MysqlError(f"Unexpected result column value: {column}")
 
 
-def _find_first_non_null_value(
-    idx: int, rows: Sequence[Sequence[Any]]
-) -> Optional[Any]:
+def _find_first_non_null_value(idx: int, rows: Sequence[Sequence[Any]]) -> Optional[Any]:
     for row in rows:
         value = row[idx]
         if value is not None:
@@ -378,9 +370,7 @@ class NullBitmap:
         return cls(bitmap, offset)
 
     @classmethod
-    def from_buffer(
-        cls, buffer: io.BytesIO, num_bits: int, offset: int = 0
-    ) -> NullBitmap:
+    def from_buffer(cls, buffer: io.BytesIO, num_bits: int, offset: int = 0) -> NullBitmap:
         bitmap = bytearray(buffer.read(cls._num_bytes(num_bits, offset)))
         return cls(bitmap, offset)
 

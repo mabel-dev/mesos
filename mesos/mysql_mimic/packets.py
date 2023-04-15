@@ -189,9 +189,7 @@ def make_handshake_v10(
     status_flags: ServerStatus,
     auth_plugin_name: str,
 ) -> bytes:
-    auth_plugin_data_len = (
-        len(auth_data) if Capabilities.CLIENT_PLUGIN_AUTH in capabilities else 0
-    )
+    auth_plugin_data_len = len(auth_data) if Capabilities.CLIENT_PLUGIN_AUTH in capabilities else 0
 
     parts = [
         uint_1(10),  # protocol version
@@ -262,9 +260,7 @@ def parse_handshake_response(
     return response
 
 
-def parse_handshake_response_41(
-    capabilities: Capabilities, data: bytes
-) -> HandshakeResponse41:
+def parse_handshake_response_41(capabilities: Capabilities, data: bytes) -> HandshakeResponse41:
     response = parse_handshake_response(capabilities, data)
     assert isinstance(response, HandshakeResponse41)
     return response
@@ -296,9 +292,7 @@ def parse_com_change_user(
         auth_response = read_str_null(r)
     database = client_charset.decode(read_str_null(r))
 
-    response = ComChangeUser(
-        username=username, auth_response=auth_response, database=database
-    )
+    response = ComChangeUser(username=username, auth_response=auth_response, database=database)
 
     if peek(r):  # more data available
         if Capabilities.CLIENT_PROTOCOL_41 in capabilities:
@@ -392,9 +386,7 @@ def make_column_definition_41(
     return _concat(*parts)
 
 
-def make_text_resultset_row(
-    row: Sequence[Any], columns: Sequence[ResultColumn]
-) -> bytes:
+def make_text_resultset_row(row: Sequence[Any], columns: Sequence[ResultColumn]) -> bytes:
     parts = []
 
     for value, column in zip(row, columns):
@@ -665,14 +657,10 @@ def _read_param_value(
     if param_type == ColumnType.NULL:
         return None
 
-    raise MysqlError(
-        f"Unsupported parameter type: {param_type}", ErrorCode.NOT_SUPPORTED_YET
-    )
+    raise MysqlError(f"Unsupported parameter type: {param_type}", ErrorCode.NOT_SUPPORTED_YET)
 
 
-def _read_connect_attrs(
-    reader: io.BytesIO, client_charset: CharacterSet
-) -> Dict[str, str]:
+def _read_connect_attrs(reader: io.BytesIO, client_charset: CharacterSet) -> Dict[str, str]:
     connect_attrs = {}
     total_l = read_uint_len(reader)
 

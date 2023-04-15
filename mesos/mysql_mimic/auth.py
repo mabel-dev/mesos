@@ -83,9 +83,7 @@ class AuthPlugin:
         """
         yield Forbidden()
 
-    async def start(
-        self, auth_info: Optional[AuthInfo] = None
-    ) -> Tuple[Decision, AuthState]:
+    async def start(self, auth_info: Optional[AuthInfo] = None) -> Tuple[Decision, AuthState]:
         state = self.auth(auth_info)
         data = await state.__anext__()
         return data, state
@@ -158,9 +156,7 @@ class NativePasswordAuthPlugin(AuthPlugin):
             or self.verify_scramble(user.old_auth_string, scramble, nonce)
         )
 
-    def verify_scramble(
-        self, auth_string: Optional[str], scramble: bytes, nonce: bytes
-    ) -> bool:
+    def verify_scramble(self, auth_string: Optional[str], scramble: bytes, nonce: bytes) -> bool:
         # From docs,
         # response.data should be:
         #   SHA1(password) XOR SHA1("20-bytes random data from server" <concat> SHA1(SHA1(password)))

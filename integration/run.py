@@ -137,9 +137,7 @@ async def main():
         identity_provider = CustomIdentityProvider(
             krb5_service=krb5_service, krb5_realm=realm.realm
         )
-        server = MysqlServer(
-            identity_provider=identity_provider, session_factory=MySession
-        )
+        server = MysqlServer(identity_provider=identity_provider, session_factory=MySession)
 
         await server.start_server(port=args.port)
         await wait_for_port(port=args.port)

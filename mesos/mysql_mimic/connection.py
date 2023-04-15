@@ -26,7 +26,6 @@ from mysql_mimic.prepared import REGEX_PARAM
 from mysql_mimic.prepared import PreparedStatement
 from mysql_mimic.results import ResultSet
 from mysql_mimic.results import ensure_result_set
-from mysql_mimic.schema import com_field_list_to_show_statement
 from mysql_mimic.session import BaseSession
 from mysql_mimic.stream import ConnectionClosed
 from mysql_mimic.stream import MysqlStream
@@ -153,13 +152,9 @@ class Connection:
         )
 
         self.session.database = com_change_user.database
-        self.session.variables.set(
-            "external_user", com_change_user.username, force=True
-        )
+        self.session.variables.set("external_user", com_change_user.username, force=True)
         if com_change_user.client_charset:
-            self.session.variables.set(
-                "character_set_client", com_change_user.client_charset.name
-            )
+            self.session.variables.set("character_set_client", com_change_user.client_charset.name)
         if com_change_user.connect_attrs:
             self.client_connect_attrs = com_change_user.connect_attrs
 
@@ -324,9 +319,7 @@ class Connection:
         """
         await self.stream.write(self.ok())
 
-    async def handle_reset_connection(
-        self, data: bytes
-    ) -> None:  # pylint: disable=unused-argument
+    async def handle_reset_connection(self, data: bytes) -> None:  # pylint: disable=unused-argument
         """
         https://dev.mysql.com/doc/internals/en/com-reset-connection.html
 
@@ -336,9 +329,7 @@ class Connection:
         """
         await self.stream.write(self.ok())
 
-    async def handle_debug(
-        self, data: bytes
-    ) -> None:  # pylint: disable=unused-argument
+    async def handle_debug(self, data: bytes) -> None:  # pylint: disable=unused-argument
         """
         https://dev.mysql.com/doc/internals/en/com-debug.html
 
@@ -422,9 +413,7 @@ class Connection:
         stmt = self.get_stmt(com_stmt_send_long_data.stmt_id)
         if stmt.param_buffers is None:
             stmt.param_buffers = {}
-        buffer = stmt.param_buffers.setdefault(
-            com_stmt_send_long_data.param_id, bytearray()
-        )
+        buffer = stmt.param_buffers.setdefault(com_stmt_send_long_data.param_id, bytearray())
         buffer.extend(com_stmt_send_long_data.data)
 
     async def handle_stmt_execute(self, data: bytes) -> None:
@@ -442,9 +431,7 @@ class Connection:
 
         com_stmt_execute.stmt.param_buffers = None
 
-        result_set = await self.query(
-            com_stmt_execute.sql, com_stmt_execute.query_attrs
-        )
+        result_set = await self.query(com_stmt_execute.sql, com_stmt_execute.query_attrs)
 
         if not result_set:
             await self.stream.write(self.ok())
@@ -462,10 +449,7 @@ class Connection:
                 )
             )
 
-        rows = (
-            packets.make_binary_resultrow(r, result_set.columns)
-            for r in result_set.rows
-        )
+        rows = (packets.make_binary_resultrow(r, result_set.columns) for r in result_set.rows)
 
         if com_stmt_execute.use_cursor:
             com_stmt_execute.stmt.cursor = rows
@@ -535,9 +519,7 @@ class Connection:
     async def query(self, sql: str, query_attrs: Dict[str, str]) -> ResultSet:
         logger.debug("Received query: %s", sql)
 
-        result_set = ensure_result_set(
-            await self.session.query(sql=sql, attrs=query_attrs)
-        )
+        result_set = ensure_result_set(await self.session.query(sql=sql, attrs=query_attrs))
         return result_set
 
     def ok(self, **kwargs: Any) -> bytes:
@@ -603,9 +585,7 @@ class Connection:
 
         yield self.ok_or_eof(affected_rows=affected_rows)
 
-    def com_stmt_prepare_response(
-        self, statement: PreparedStatement
-    ) -> Iterator[bytes]:
+    def com_stmt_prepare_response(self, statement: PreparedStatement) -> Iterator[bytes]:
         yield packets.make_com_stmt_prepare_ok(statement)
         if statement.num_params:
             for _ in range(statement.num_params):

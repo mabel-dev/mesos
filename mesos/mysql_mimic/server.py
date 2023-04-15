@@ -19,6 +19,10 @@ from mysql_mimic.session import Session
 from mysql_mimic.stream import MysqlStream
 from mysql_mimic.types import Capabilities
 from mysql_mimic.utils import seq
+from opteryx.third_party.fastlogging import GetLogger
+from opteryx.third_party.fastlogging import LogInit
+
+logger = LogInit(console=True, colors=True, useThreads=False)
 
 
 class MaxConnectionsExceeded(Exception):
@@ -106,9 +110,7 @@ class MysqlServer:
         """
         if len(self._connections) >= self._MAX_CONNECTION_SEQ:
             raise MaxConnectionsExceeded()
-        server_id_prefix = (
-            self.server_id % self._MAX_SERVER_ID
-        ) << self._CONNECTION_ID_BITS
+        server_id_prefix = (self.server_id % self._MAX_SERVER_ID) << self._CONNECTION_ID_BITS
 
         connection_id = server_id_prefix + next(self._connection_seq)
 
@@ -155,8 +157,10 @@ class MysqlServer:
             **kwargs: keyword args passed to `start_server`
         """
         if not self._server:
+            logger.debug("starting mesos")
             await self.start_server(**kwargs)
         assert self._server is not None
+        logger.debug("accepting connections")
         await self._server.serve_forever()
 
     def close(self) -> None:
@@ -167,6 +171,7 @@ class MysqlServer:
         use the `wait_closed` coroutine to wait until the server is closed.
         """
         if self._server:
+            logger.debug("stopping mesos")
             self._server.close()
 
     async def wait_closed(self) -> None:

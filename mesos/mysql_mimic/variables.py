@@ -71,9 +71,7 @@ class Variables(abc.ABC):
     def get_schema(self, name: str) -> VariableSchema:
         schema = self.schema.get(name)
         if not schema:
-            raise MysqlError(
-                f"Unknown variable: {name}", code=ErrorCode.UNKNOWN_SYSTEM_VARIABLE
-            )
+            raise MysqlError(f"Unknown variable: {name}", code=ErrorCode.UNKNOWN_SYSTEM_VARIABLE)
         return schema
 
     def set(self, name: str, value: Any, force: bool = False) -> None:
@@ -81,9 +79,7 @@ class Variables(abc.ABC):
         type_, default, dynamic = self.get_schema(name)
 
         if not dynamic and not force:
-            raise MysqlError(
-                f"Variable is not dynamic: {name}", code=ErrorCode.PARSE_ERROR
-            )
+            raise MysqlError(f"Variable is not dynamic: {name}", code=ErrorCode.PARSE_ERROR)
 
         if value is DEFAULT or value is None:
             self.values[name] = default

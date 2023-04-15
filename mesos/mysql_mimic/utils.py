@@ -38,11 +38,7 @@ def xor(a: bytes, b: bytes) -> bytes:
 
 
 def nonce(nbytes: int) -> bytes:
-    return bytes(
-        bytearray(
-            [random.SystemRandom().choice(SAFE_NONCE_CHARS) for _ in range(nbytes)]
-        )
-    )
+    return bytes(bytearray([random.SystemRandom().choice(SAFE_NONCE_CHARS) for _ in range(nbytes)]))
 
 
 def find_tables(expression: exp.Expression) -> List[exp.Table]:
