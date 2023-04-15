@@ -51,11 +51,11 @@ SYSTEM_VARIABLES: dict[str, VariableSchema] = {
     "transaction_read_only": (bool, False, True),
     "transaction_isolation": (str, "READ-COMMITTED", True),
     "version": (str, "8.0.29", False),
-    "version_comment": (str, "mysql-mimic", False),
+    "version_comment": (str, "mesos", False),
     "wait_timeout": (int, 28800, True),
     "event_scheduler": (str, "OFF", True),
-    "default_storage_engine": (str, "mysql-mimic", True),
-    "default_tmp_storage_engine": (str, "mysql-mimic", True),
+    "default_storage_engine": (str, "opteryx", True),
+    "default_tmp_storage_engine": (str, "opteryx", True),
 }
 
 

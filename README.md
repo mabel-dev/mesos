@@ -8,4 +8,4 @@
 
 </div>
 
-Mesos is a fork of the awesome [mysql-mimic](https://github.com/kelsin/mysql-mimic) project, with the SQLGlot backend removed and replaced with Opteryx.
+Mesos is a fork of the awesome [mysql-mimic](https://github.com/kelsin/mysql-mimic) project, with an Opteryx back-end.

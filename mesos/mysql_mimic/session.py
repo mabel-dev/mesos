@@ -82,21 +82,6 @@ class Session(BaseSession):
     def __init__(self, variables: Variables | None = None):
         self.variables = variables or SessionVariables(GlobalVariables())
 
-        # Information functions.
-        # These will be replaced in the AST with their corresponding values.
-        self._functions = {
-            "CONNECTION_ID": lambda: self.connection.connection_id,
-            "USER": lambda: self.variables.get("external_user"),
-            "SYSTEM_USER": lambda: self.variables.get("external_user"),
-            "SESSION_USER": lambda: self.variables.get("external_user"),
-            "CURRENT_USER": lambda: self.username,
-            "VERSION": lambda: self.variables.get("version"),
-            "DATABASE": lambda: self.database,
-            "SCHEMA": lambda: self.database,
-        }
-
-        # Current database
-        self.database = None
 
         # Current authenticated user
         self.username = None
