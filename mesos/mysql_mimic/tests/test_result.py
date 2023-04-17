@@ -1,7 +1,6 @@
 from typing import Any
 
 import pytest
-
 from mysql_mimic.errors import MysqlError
 from mysql_mimic.results import ensure_result_set
 

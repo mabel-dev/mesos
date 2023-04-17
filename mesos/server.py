@@ -2,11 +2,20 @@ import asyncio
 import os
 import sys
 
-sys.path.insert(1, os.path.join(sys.path[0], "../../opteryx"))
-
-import opteryx
 from mysql_mimic import MysqlServer
 from mysql_mimic import Session
+from orso import logging
+from sqlglot.executor import execute
+
+sys.path.insert(1, os.path.join(sys.path[0], "../../opteryx"))
+
+import opteryx  # isort: skip
+
+
+logging.set_log_name("MESOS")
+logger = logging.get_logger()
+logger.setLevel(5)
+
 
 class MySession(Session):
     async def query(self, sql, attrs):

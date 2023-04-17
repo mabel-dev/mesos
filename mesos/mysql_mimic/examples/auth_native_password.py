@@ -1,12 +1,14 @@
 import asyncio
-import logging
 
 from mysql_mimic import IdentityProvider
 from mysql_mimic import MysqlServer
 from mysql_mimic import NativePasswordAuthPlugin
 from mysql_mimic import User
+from orso import logging
 
-logger = logging.getLogger(__name__)
+logging.set_log_name("MESOS")
+logger = logging.get_logger()
+logger.setLevel(5)
 
 
 class CustomIdentityProvider(IdentityProvider):
@@ -31,7 +33,6 @@ class CustomIdentityProvider(IdentityProvider):
 
 
 async def main():
-    logging.basicConfig(level=logging.DEBUG)
     identity_provider = CustomIdentityProvider(passwords={"user": "password"})
     server = MysqlServer(identity_provider=identity_provider)
     await server.serve_forever()

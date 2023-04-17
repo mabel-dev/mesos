@@ -2,7 +2,6 @@ import io
 import struct
 
 import pytest
-
 from mysql_mimic import types
 
 
@@ -10,9 +9,7 @@ def test_column_definition() -> None:
     assert types.ColumnDefinition.NOT_NULL_FLAG == 1
     assert types.ColumnDefinition.PRI_KEY_FLAG == 2
     assert types.ColumnDefinition.FIELD_IS_INVISIBLE == 1 << 30
-    assert (
-        types.ColumnDefinition.NOT_NULL_FLAG | types.ColumnDefinition.PRI_KEY_FLAG == 3
-    )
+    assert types.ColumnDefinition.NOT_NULL_FLAG | types.ColumnDefinition.PRI_KEY_FLAG == 3
 
 
 def test_capabilities() -> None:
@@ -20,10 +17,7 @@ def test_capabilities() -> None:
     assert types.Capabilities.CLIENT_FOUND_ROWS == 2
     assert types.Capabilities.CLIENT_PROTOCOL_41 == 512
     assert types.Capabilities.CLIENT_DEPRECATE_EOF == 1 << 24
-    assert (
-        types.Capabilities.CLIENT_LONG_PASSWORD | types.Capabilities.CLIENT_FOUND_ROWS
-        == 3
-    )
+    assert types.Capabilities.CLIENT_LONG_PASSWORD | types.Capabilities.CLIENT_FOUND_ROWS == 3
 
 
 def test_server_status() -> None:
@@ -31,9 +25,7 @@ def test_server_status() -> None:
     assert types.ServerStatus.SERVER_STATUS_AUTOCOMMIT == 2
     assert types.ServerStatus.SERVER_STATUS_LAST_ROW_SENT == 128
     assert (
-        types.ServerStatus.SERVER_STATUS_IN_TRANS
-        | types.ServerStatus.SERVER_STATUS_AUTOCOMMIT
-        == 3
+        types.ServerStatus.SERVER_STATUS_IN_TRANS | types.ServerStatus.SERVER_STATUS_AUTOCOMMIT == 3
     )
 
 

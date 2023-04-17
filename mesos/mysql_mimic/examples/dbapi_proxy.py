@@ -1,11 +1,13 @@
 import asyncio
-import logging
 import sqlite3
 
 from mysql_mimic import MysqlServer
 from mysql_mimic import Session
+from orso import logging
 
-logger = logging.getLogger(__name__)
+logging.set_log_name("MESOS")
+logger = logging.get_logger()
+logger.setLevel(5)
 
 
 class DbapiProxySession(Session):
@@ -27,7 +29,6 @@ class DbapiProxySession(Session):
 
 
 async def main():
-    logging.basicConfig(level=logging.DEBUG)
     server = MysqlServer(session_factory=DbapiProxySession)
     await server.serve_forever()
 

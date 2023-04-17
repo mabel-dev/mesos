@@ -1,22 +1,35 @@
 import io
 from contextlib import closing
-from datetime import date, datetime, timedelta
+from datetime import date
+from datetime import datetime
+from datetime import timedelta
 from functools import partial
-from typing import Any, Callable, Awaitable, Sequence, Dict, List, Tuple
+from typing import Any
+from typing import Awaitable
+from typing import Callable
+from typing import Dict
+from typing import List
+from typing import Sequence
+from typing import Tuple
 
+import aiomysql
 import pytest
 import pytest_asyncio
 from mysql.connector.abstracts import MySQLConnectionAbstract
+from mysql_mimic import MysqlServer
+from mysql_mimic import ResultColumn
+from mysql_mimic import ResultSet
+from mysql_mimic import context
+from mysql_mimic.charset import CharacterSet
+from mysql_mimic.constants import INFO_SCHEMA
+from mysql_mimic.results import AllowedResult
+from mysql_mimic.types import ColumnType
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncEngine
-import aiomysql
-
-from mysql_mimic import ResultColumn, ResultSet, MysqlServer, context
-from mysql_mimic.charset import CharacterSet
-from mysql_mimic.results import AllowedResult
-from mysql_mimic.constants import INFO_SCHEMA
-from mysql_mimic.types import ColumnType
-from tests.conftest import PreparedDictCursor, query, MockSession, ConnectFixture
+from tests.conftest import ConnectFixture
+from tests.conftest import MockSession
+from tests.conftest import PreparedDictCursor
+from tests.conftest import query
 from tests.fixtures import queries
 
 QueryFixture = Callable[[str], Awaitable[Sequence[Dict[str, Any]]]]
@@ -42,9 +55,7 @@ async def query_fixture(
     if request.param == "mysql.connector(prepared)":
 
         async def q2(sql: str) -> Sequence[Dict[str, Any]]:
-            return await query(
-                mysql_connector_conn, sql, cursor_class=PreparedDictCursor
-            )
+            return await query(mysql_connector_conn, sql, cursor_class=PreparedDictCursor)
 
         return q2
 
@@ -220,9 +231,7 @@ async def test_prepared_stmt(
 
 @pytest.mark.asyncio
 async def test_init(port: int, session: MockSession, server: MysqlServer) -> None:
-    async with aiomysql.connect(
-        port=port, user="levon_helm", db="db", program_name="test"
-    ):
+    async with aiomysql.connect(port=port, user="levon_helm", db="db", program_name="test"):
         connection = session.connection
         assert connection is not None
         assert connection.session.username == "levon_helm"
@@ -231,9 +240,7 @@ async def test_init(port: int, session: MockSession, server: MysqlServer) -> Non
 
 
 @pytest.mark.asyncio
-async def test_connection_id(
-    port: int, session: MockSession, server: MysqlServer
-) -> None:
+async def test_connection_id(port: int, session: MockSession, server: MysqlServer) -> None:
     async with aiomysql.connect(port=port) as conn1:
         async with aiomysql.connect(port=port) as conn2:
             assert conn1.server_thread_id[0] + 1 == conn2.server_thread_id[0]
@@ -540,10 +547,7 @@ async def test_query_attributes(
                             ("information_schema", name, "SYSTEM TABLE")
                             for name in INFO_SCHEMA["information_schema"]
                         ],
-                        *[
-                            ("mysql", name, "SYSTEM TABLE")
-                            for name in INFO_SCHEMA["mysql"]
-                        ],
+                        *[("mysql", name, "SYSTEM TABLE") for name in INFO_SCHEMA["mysql"]],
                     ]
                 )
             ],

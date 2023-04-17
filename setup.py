@@ -16,7 +16,7 @@ setup(
     license="MIT",
     packages=find_packages(include=["mysql_mimic", "mysql_mimic.*"]),
     python_requires=">=3.6",
-    install_requires=["sqlglot>=10.1.3"],
+    install_requires=[],
     extras_require={
         "dev": [
             "aiomysql",

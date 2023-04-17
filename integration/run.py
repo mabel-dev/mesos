@@ -1,6 +1,5 @@
 import argparse
 import asyncio
-import logging
 import os
 import sys
 import tempfile
@@ -13,9 +12,12 @@ from mysql_mimic import NativePasswordAuthPlugin
 from mysql_mimic import Session
 from mysql_mimic import User
 from mysql_mimic.auth import KerberosAuthPlugin
+from orso import logging
 from sqlglot.executor import execute
 
-logger = logging.getLogger(__name__)
+logging.set_log_name("MESOS")
+logger = logging.get_logger()
+logger.setLevel(5)
 
 SCHEMA = {
     "test": {
@@ -122,7 +124,6 @@ async def main():
     parser.add_argument("-p", "--port", type=int, default=3308)
     args = parser.parse_args()
 
-    logging.basicConfig(level=logging.DEBUG)
     realm = None
     jaas_conf = None
 

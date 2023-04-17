@@ -19,10 +19,11 @@ from mysql_mimic.session import Session
 from mysql_mimic.stream import MysqlStream
 from mysql_mimic.types import Capabilities
 from mysql_mimic.utils import seq
-from opteryx.third_party.fastlogging import GetLogger
-from opteryx.third_party.fastlogging import LogInit
+from orso import logging
 
-logger = LogInit(console=True, colors=True, useThreads=False)
+logging.set_log_name("MESOS")
+logger = logging.get_logger()
+logger.setLevel(5)
 
 
 class MaxConnectionsExceeded(Exception):

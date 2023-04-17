@@ -1,4 +1,3 @@
-import logging
 from ssl import SSLContext
 from typing import Any
 from typing import Dict
@@ -31,8 +30,11 @@ from mysql_mimic.stream import ConnectionClosed
 from mysql_mimic.stream import MysqlStream
 from mysql_mimic.types import Capabilities
 from mysql_mimic.utils import seq
+from orso import logging
 
-logger = logging.getLogger(__name__)
+logging.set_log_name("MESOS")
+logger = logging.get_logger()
+logger.setLevel(5)
 
 
 class Connection:

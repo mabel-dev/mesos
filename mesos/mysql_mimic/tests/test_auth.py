@@ -1,19 +1,23 @@
 from contextlib import closing
-from typing import Optional, Tuple, List, Dict
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing import Tuple
 
 import pytest
 from mysql.connector import DatabaseError
 from mysql.connector.abstracts import MySQLConnectionAbstract
 from mysql.connector.plugins.mysql_clear_password import MySQLClearPasswordAuthPlugin
-
-from mysql_mimic import User, MysqlServer
-from mysql_mimic.auth import (
-    NativePasswordAuthPlugin,
-    AbstractClearPasswordAuthPlugin,
-    AuthPlugin,
-    NoLoginAuthPlugin,
-)
-from tests.conftest import query, to_thread, MockSession, ConnectFixture
+from mysql_mimic import MysqlServer
+from mysql_mimic import User
+from mysql_mimic.auth import AbstractClearPasswordAuthPlugin
+from mysql_mimic.auth import AuthPlugin
+from mysql_mimic.auth import NativePasswordAuthPlugin
+from mysql_mimic.auth import NoLoginAuthPlugin
+from tests.conftest import ConnectFixture
+from tests.conftest import MockSession
+from tests.conftest import query
+from tests.conftest import to_thread
 
 # mysql.connector throws an error if you try to use mysql_clear_password without SSL.
 # That's silly, since SSL termination doesn't have to be handled by MySQL.
@@ -57,12 +61,8 @@ def users() -> Dict[str, User]:
         ),
         PASSWORD_AUTH_USER: User(
             name=PASSWORD_AUTH_USER,
-            auth_string=NativePasswordAuthPlugin.create_auth_string(
-                PASSWORD_AUTH_PASSWORD
-            ),
-            old_auth_string=NativePasswordAuthPlugin.create_auth_string(
-                PASSWORD_AUTH_OLD_PASSWORD
-            ),
+            auth_string=NativePasswordAuthPlugin.create_auth_string(PASSWORD_AUTH_PASSWORD),
+            old_auth_string=NativePasswordAuthPlugin.create_auth_string(PASSWORD_AUTH_OLD_PASSWORD),
             auth_plugin=NativePasswordAuthPlugin.name,
         ),
         TEST_PLUGIN_AUTH_USER: User(
@@ -131,9 +131,7 @@ async def test_auth_secondary_password(
             auth_plugin=PASSWORD_AUTH_PLUGIN,
         )
     ) as conn:
-        assert await query(conn=conn, sql="SELECT USER() AS a") == [
-            {"a": PASSWORD_AUTH_USER}
-        ]
+        assert await query(conn=conn, sql="SELECT USER() AS a") == [{"a": PASSWORD_AUTH_USER}]
 
 
 @pytest.mark.asyncio

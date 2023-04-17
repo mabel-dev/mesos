@@ -1,5 +1,5 @@
-import io
 import contextlib
+import io
 
 from mysql_mimic import version
 

@@ -1,5 +1,4 @@
 import pytest
-
 from mysql_mimic.errors import MysqlError
 from mysql_mimic.stream import MysqlStream
 
@@ -90,9 +89,7 @@ async def test_edge_read() -> None:
 
 @pytest.mark.asyncio
 async def test_large_read() -> None:
-    reader = MockReader(
-        b"\xff\xff\xff\x00" + bytes(0xFFFFFF) + b"\x06\x00\x00\x01" + b"kelsin"
-    )
+    reader = MockReader(b"\xff\xff\xff\x00" + bytes(0xFFFFFF) + b"\x06\x00\x00\x01" + b"kelsin")
     s = MysqlStream(reader=reader, writer=None)  # type: ignore
     assert await s.read() == bytes(0xFFFFFF) + b"kelsin"
     assert next(s.seq) == 2
@@ -139,7 +136,5 @@ async def test_large_write() -> None:
     writer = MockWriter()
     s = MysqlStream(reader=None, writer=writer)  # type: ignore
     await s.write(bytes(0xFFFFFF) + b"kelsin")
-    assert (
-        writer.data == b"\xff\xff\xff\x00" + bytes(0xFFFFFF) + b"\x06\x00\x00\x01kelsin"
-    )
+    assert writer.data == b"\xff\xff\xff\x00" + bytes(0xFFFFFF) + b"\x06\x00\x00\x01kelsin"
     assert next(s.seq) == 2

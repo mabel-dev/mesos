@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import io
-import logging
 from copy import copy
 from dataclasses import dataclass
 from hashlib import sha1
@@ -14,8 +13,11 @@ from typing import Union
 
 from mysql_mimic import utils
 from mysql_mimic.types import read_str_null
+from orso import logging
 
-logger = logging.getLogger(__name__)
+logging.set_log_name("MESOS")
+logger = logging.get_logger()
+logger.setLevel(5)
 
 
 # Many authentication plugins don't need to send any sort of challenge/nonce.

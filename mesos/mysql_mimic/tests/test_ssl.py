@@ -1,10 +1,12 @@
 import os
 from contextlib import closing
-from ssl import SSLContext, PROTOCOL_TLS_SERVER
+from ssl import PROTOCOL_TLS_SERVER
+from ssl import SSLContext
 
 import pytest
-
-from tests.conftest import MockSession, ConnectFixture, query
+from tests.conftest import ConnectFixture
+from tests.conftest import MockSession
+from tests.conftest import query
 
 CURRENT_DIR = os.path.dirname(__file__)
 SSL_CERT = os.path.join(CURRENT_DIR, "fixtures/certificate.pem")

@@ -82,7 +82,6 @@ class Session(BaseSession):
     def __init__(self, variables: Variables | None = None):
         self.variables = variables or SessionVariables(GlobalVariables())
 
-
         # Current authenticated user
         self.username = None
 
