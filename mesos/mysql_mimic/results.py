@@ -15,13 +15,13 @@ from typing import Sequence
 from typing import Tuple
 from typing import Union
 
-from mysql_mimic.charset import CharacterSet
 from mysql_mimic.errors import MysqlError
 from mysql_mimic.types import ColumnType
 from mysql_mimic.types import str_len
 from mysql_mimic.types import uint_1
 from mysql_mimic.types import uint_2
 from mysql_mimic.types import uint_4
+from opteryx.constants.character_set import CharacterSet
 
 Encoder = Callable[[Any, "ResultColumn"], bytes]
 

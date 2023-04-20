@@ -2,13 +2,11 @@ import asyncio
 import os
 import sys
 
-from mysql_mimic import MysqlServer
-from mysql_mimic import Session
-from orso import logging
-from sqlglot.executor import execute
-
 sys.path.insert(1, os.path.join(sys.path[0], "../../opteryx"))
 
+from mysql_mimic import MysqlServer  # isort: skip
+from mysql_mimic import Session  # isort: skip
+from orso import logging  # isort: skip
 import opteryx  # isort: skip
 
 

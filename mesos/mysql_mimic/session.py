@@ -4,9 +4,6 @@ import typing
 from contextlib import contextmanager
 
 from mysql_mimic.results import AllowedResult
-from mysql_mimic.variables import GlobalVariables
-from mysql_mimic.variables import SessionVariables
-from mysql_mimic.variables import Variables
 
 if typing.TYPE_CHECKING:
     from mysql_mimic.connection import Connection
@@ -23,7 +20,6 @@ class BaseSession:
     Most applications to implement the abstract `Session`, not this class.
     """
 
-    variables: Variables
     username: typing.Optional[str]
     database: typing.Optional[str]
 
@@ -79,9 +75,7 @@ class Session(BaseSession):
     e.g. session variables, SHOW commands, queries to INFORMATION_SCHEMA, and more
     """
 
-    def __init__(self, variables: Variables | None = None):
-        self.variables = variables or SessionVariables(GlobalVariables())
-
+    def __init__(self):
         # Current authenticated user
         self.username = None
 
@@ -106,7 +100,7 @@ class Session(BaseSession):
         """
         return [], []
 
-    async def schema(self) -> dict | BaseInfoSchema:
+    async def schema(self) -> dict:
         """
         Provide the database schema.
 

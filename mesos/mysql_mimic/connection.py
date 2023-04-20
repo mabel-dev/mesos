@@ -4,6 +4,7 @@ from typing import Dict
 from typing import Iterator
 from typing import Optional
 
+import opteryx
 from mysql_mimic import context
 from mysql_mimic import packets
 from mysql_mimic import types
@@ -13,7 +14,6 @@ from mysql_mimic.auth import AuthState
 from mysql_mimic.auth import Forbidden
 from mysql_mimic.auth import IdentityProvider
 from mysql_mimic.auth import Success
-from mysql_mimic.charset import CharacterSet
 from mysql_mimic.constants import DEFAULT_SERVER_CAPABILITIES
 from mysql_mimic.errors import ErrorCode
 from mysql_mimic.errors import MysqlError
@@ -30,6 +30,7 @@ from mysql_mimic.stream import ConnectionClosed
 from mysql_mimic.stream import MysqlStream
 from mysql_mimic.types import Capabilities
 from mysql_mimic.utils import seq
+from opteryx.constants.character_set import CharacterSet
 from orso import logging
 
 logging.set_log_name("MESOS")
@@ -77,11 +78,11 @@ class Connection:
 
     @property
     def server_charset(self) -> CharacterSet:
-        return CharacterSet[self.session.variables.get("character_set_results")]
+        return CharacterSet[opteryx.variables.get("character_set_results")]
 
     @property
     def client_charset(self) -> CharacterSet:
-        return CharacterSet[self.session.variables.get("character_set_client")]
+        return CharacterSet[opteryx.variables.get("character_set_client")]
 
     async def start(self) -> None:
         context.connection_id.set(self.connection_id)
@@ -108,7 +109,7 @@ class Connection:
         handshake_v10 = packets.make_handshake_v10(
             capabilities=self.server_capabilities,
             server_charset=self.server_charset,
-            server_version=self.session.variables.get("version"),
+            server_version=opteryx.variables.get("version"),
             connection_id=self.connection_id,
             auth_data=auth_data,
             status_flags=self.status_flags,
@@ -129,12 +130,12 @@ class Connection:
 
         self.capabilities = response.capabilities
         self.max_packet_size = response.max_packet_size
-        self.session.variables.set("character_set_client", response.client_charset.name)
+        opteryx.variables.assign("character_set_client", response.client_charset.name)
         self.session.database = response.database
         self.client_plugin_name = response.client_plugin
         self.client_connect_attrs = response.connect_attrs
         self.zstd_compression_level = response.zstd_compression_level
-        self.session.variables.set("external_user", response.username, force=True)
+        opteryx.variables.assign("external_user", response.username)
 
         await self.authenticate(
             auth_state=auth_state,
