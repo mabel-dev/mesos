@@ -19,12 +19,12 @@ import asyncio
 import os
 import sys
 
-import mesos
 import typer
 
 sys.path.insert(1, os.path.join(sys.path[0], "../../opteryx"))
 sys.path.insert(1, os.path.join(sys.path[0], ".."))
 
+import mesos  # isort: skip
 from mysql_mimic import MysqlServer  # isort: skip
 from mysql_mimic import Session  # isort: skip
 from orso import logging  # isort: skip
@@ -53,7 +53,7 @@ class MySession(Session):
             return curr.fetchall(), curr.column_names
         except Exception as err:
             logger.exception(f"{type(err).__name__} - {err}")
-            return False
+            raise err
 
 
 # fmt:off
